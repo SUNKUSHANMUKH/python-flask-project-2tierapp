@@ -66,7 +66,8 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     * Select the **t2.micro** instance type for free-tier eligibility.
     * Create and assign a new key pair for SSH access.
 
-<img src="diagrams/01.png">
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/20c1c428-8914-4e4c-90ae-fd3db7d3cf95" />
+
 
 2.  **Configure Security Group:**
     * Create a security group with the following inbound rules:
@@ -75,7 +76,7 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
         * **Type:** Custom TCP, **Protocol:** TCP, **Port:** 5000 (for Flask), **Source:** Anywhere (0.0.0.0/0)
         * **Type:** Custom TCP, **Protocol:** TCP, **Port:** 8080 (for Jenkins), **Source:** Anywhere (0.0.0.0/0)
 
-<img src="diagrams/02.png">
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6126eaf1-96cd-4296-8bde-8cbdab5a4f18" />
 
 3.  **Connect to EC2 Instance:**
     * Use SSH to connect to the instance's public IP address.
@@ -145,7 +146,7 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     sudo usermod -aG docker jenkins
     sudo systemctl restart jenkins
     ```
-<img src="diagrams/03.png">
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/29b08bbb-2db2-48e1-9bc3-018937e68d87" />
 
 ---
 
@@ -283,14 +284,16 @@ pipeline {
     * Verify the **Script Path** is `Jenkinsfile`.
     * Save the configuration.
 
-<img src="diagrams/04.png">
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/1ba17ce3-f395-4010-bfb2-b53736f10856" />
+
 
 3.  **Run the Pipeline:**
     * Click **Build Now** to trigger the pipeline manually for the first time.
     * Monitor the execution through the **Stage View** or **Console Output**.
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/41a0401a-a4f3-420d-b4d7-4f48b88dafb2" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7828c69a-73d1-4a3b-9566-722db55a8250" />
 
-<img src="diagrams/05.png">
-<img src="diagrams/06.png">
+
 
 4.  **Verify Deployment:**
     * After a successful build, your Flask application will be accessible at `http://<your-ec2-public-ip>:5000`.
@@ -303,8 +306,8 @@ The CI/CD pipeline is now fully operational. Any `git push` to the `main` branch
 
 
 ### **9. Infrastructure Diagram**
-<img src="diagrams/Infrastructure.png">
+<img width="871" height="1004" alt="image" src="https://github.com/user-attachments/assets/8440d10b-6c41-4d36-adc6-6011e0e11e06" />
 
 
 ### **10. Work flow Diagram**
-<img src="diagrams/project_workflow.png">
+<img width="771" height="822" alt="image" src="https://github.com/user-attachments/assets/4a368631-b941-4202-94bd-e59eaa1722cc" />
