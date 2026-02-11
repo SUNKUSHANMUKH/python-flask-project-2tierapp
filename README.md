@@ -82,8 +82,34 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     * Use SSH to connect to the instance's public IP address.
     ```bash
     ssh -i /path/to/key.pem ubuntu@<ec2-public-ip>
+ 
     ```
 
+    ***Unable to Find File***
+**Step 1: Find where your .pem file actually is**
+
+Run:
+
+```jsx
+find ~ -name "*.pem"
+```
+
+Example output might be:
+
+```jsx
+/Users/apple/Desktop/project1.pem
+```
+
+**Step 2: Use the REAL path (example)**
+
+```jsx
+ssh -i /Desktop/project1.pem ubuntu@<ipaddress>
+```
+
+⚠️ Paths are **case-sensitive** on macOS
+
+> Desktop ≠ desktop
+>
 ---
 
 ### **4. Step 2: Install Dependencies on EC2**
@@ -146,6 +172,50 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     sudo usermod -aG docker jenkins
     sudo systemctl restart jenkins
     ```
+***or*** 
+
+**Install Jenkins via WAR (100% works)**
+
+This is the **official fallback** and works on any Ubuntu.
+
+1️⃣ **Install Java (mandatory)**
+
+```jsx
+sudo apt update
+sudo apt install openjdk-17-jdk -y
+```
+
+Verify:
+
+```jsx
+java -version
+```
+
+2️⃣ **Download Jenkins WAR**
+
+```jsx
+wget https://get.jenkins.io/war-stable/latest/jenkins.war
+```
+
+3️⃣ **Run Jenkins**
+
+```jsx
+java -jar jenkins.war --httpPort=8080
+```
+
+👉 Jenkins will start immediately.
+
+4️⃣ **Access Jenkins on browser**
+
+```jsx
+http://<EC2-PUBLIC-IP>:8080
+```
+
+5️⃣ **Initial password on another terminal** 
+
+```jsx
+cat ~/.jenkins/secrets/initialAdminPassword
+```
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/29b08bbb-2db2-48e1-9bc3-018937e68d87" />
 
 ---
@@ -300,6 +370,18 @@ pipeline {
     * Confirm the containers are running on the EC2 instance with `docker ps`.
 
 ---
+
+**Issues:**
+   the will be a lot of issues few of are Memory or storage issues 
+   **Memory Issue**
+      run this command
+         ```    free -m         ```
+   **TO SWAP MEMORY**
+         ``` sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile``` 
+
 
 ### **8. Conclusion**
 The CI/CD pipeline is now fully operational. Any `git push` to the `main` branch of the configured GitHub repository will automatically trigger the Jenkins pipeline, which will build the new Docker image and deploy the updated application, ensuring a seamless and automated workflow from development to production.
