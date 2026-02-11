@@ -86,6 +86,8 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     ```
 
     ***Unable to Find File***
+
+    
 **Step 1: Find where your .pem file actually is**
 
 Run:
